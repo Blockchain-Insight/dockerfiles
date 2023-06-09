@@ -1,0 +1,81 @@
+version: '3.5'
+services:
+  hypersign:
+    build:
+      context: ./node
+    hostname: hypersign
+    ports:
+      - 26657:26657
+      - 26656:26656
+      - 9090:9090
+      - 1317:1317
+      - 9091:9091
+      - 9100:9100
+      - 26660:26660
+    expose:
+      - 26657
+      - 26656
+      - 9090
+      - 1317
+      - 9091
+      - 9100
+      - 26660
+    environment:
+      GITHUB_URL: https://github.com/hypersign-protocol/hid-node.git
+      CHAIN_ID: jagrat
+      APP_VERSION: v0.1.7
+      COSMOVISOR_VERSION: v1.4.0
+      MONIKER: testing
+      GAS_FEE: 0uhid
+      GENESIS_URL: https://snapshots.kjnodes.com/hypersign-testnet/genesis.json
+      ADDRESS_BOOK_URL: https://snapshots.kjnodes.com/hypersign-testnet/addrbook.json
+      SEED_URL: 3f472746f46493309650e5a033076689996c8881@hypersign-testnet.rpc.kjnodes.com:31659
+      DAEMON_NAME: hid-noded
+      DAEMON_HOME: /root/.hid-node
+      REPO_HOME : /root/hid-node
+      PRUNING_OPTION: custom
+      PRUNING_KEEP_RECENT: 100
+      PRUNING_KEEP_EVERY: 0
+      PRUNING_INTERVAL: 19
+      STATE_SYNC_RPC: https://hypersign-testnet.rpc.kjnodes.com:443
+      STATE_SYNC_PEER: d5519e378247dfb61dfe90652d1fe3e2b3005a5b@hypersign-testnet.rpc.kjnodes.com:31656
+      STATE_SYNC_MAX_VALID_HEIGHT: 1000
+      KEYRING_BACKEND: test
+      API_CORS_ENABLE: true
+      API_ENABLE: true
+      API_SWAGGER_ENABLE: true
+      STATE_SYNC: true
+      IMPORT_VALIDATOR: true
+      VAL_KEY: wallet
+      VAL_MNEMONIC: "copper push brief egg scan entry inform record adjust fossil boss egg comic alien upon aspect dry avoid interest fury window hint race symptom"
+      VAL_PRIV_KEY: "{\"address\":\"093735CEC32BAD9851C9527984622D4F319E77A0\",\"pub_key\":{\"type\":\"tendermint/PubKeyEd25519\",\"value\":\"8iK52wFyjQJSAOKeHjrNCYN3oYW6E3KMaKf0MObKokw=\"},\"priv_key\":{\"type\":\"tendermint/PrivKeyEd25519\",\"value\":\"BjaZq5EjX0RHJHWzy+6ZyLavDAij/x1DbOz0jDnDHzjyIrnbAXKNAlIA4p4eOs0Jg3ehhboTcoxop/Qw5sqiTA==\"}}"
+
+    volumes:
+      - .:/root:Z
+      - ./node:/root/scripts:Z
+    command:  /root/scripts/config_update.sh
+# exporter service
+  # exporter:
+  #   build:
+  #     context: ./exporter
+  #   ports:
+  #     - 9300:9300
+  #   expose:
+  #     - 9300
+  #   environment:
+  #     BOND_DENOM: uhid
+  #     BENCH_PREFIX: hid1
+  #     RPC_URL: http://hypersign:26657
+  #     GRPC_URL: hypersign:9090
+  #     LISTEN_ADDR: :9300
+  #   depends_on:
+  #     - hypersign
+  #   volumes:
+  #     - .:/root:Z
+  #     - ./exporter:/root/scripts:Z
+  #   command:  /root/scripts/00_entry.sh
+  #   deploy:
+  #     restart_policy:
+  #       condition: on-failure
+
+
