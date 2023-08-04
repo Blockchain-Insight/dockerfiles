@@ -3,6 +3,7 @@
 - Username for the docker hub account
 - Email address used for the docker hub account
 - Personal Access Token (PAT) for accessing the docker hub account. If you dont have a PAT, refer to https://docs.docker.com/docker-hub/access-tokens/
+- Docker should be up and running on your system
 
 
 **Configure Docker Login through Cli**
@@ -47,13 +48,13 @@ Login Succeeded
 ```
 
 **Building images for cosmos exporter application**
-- Clone the repository: https://github.com/Blockchain-Insight/Dockerfile
+- Clone the repository:  https://github.com/Blockchain-Insight/dockerfiles
 ```bash
-git clone git@github.com:Blockchain-Insight/Dockerfile.git
+git clone git@github.com:Blockchain-Insight/dockerfiles.git
 ```
 - Change to cosmos-exporter folder of the cloned repository
 ```bash
-cd Dockerfile/cosmos-exporter
+cd dockerfiles/cosmos-exporter
 ```
 - Build docker image for cosmos-exporter from dockerfile with tag **dev**
 ```bash
@@ -71,9 +72,9 @@ docker push <username>/cosmos-exporter:dev
 ```
 
 **Building images for full node application**
-- Change to node folder of the cloned repository https://github.com/Blockchain-Insight/Dockerfile
+- Change to node folder of the cloned repository https://github.com/Blockchain-Insight/dockerfiles
 ```bash
-cd Dockerfile/node
+cd dockerfiles/full-node
 ```
 - Build docker image for full node from dockerfile with tag **dev**
 ```bash
@@ -87,7 +88,7 @@ docker images | grep full-node
 ```
 - Push the docker image to docker hub
 ```bash
-docker push <username>/cosmos-exporter:dev
+docker push <username>/full-node:dev
 ```
 
 **Check images in docker hub console**
